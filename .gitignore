@@ -1,0 +1,13 @@
+/vendor/
+
+/uploads/cv/*
+/uploads/lettres/*
+/uploads/journaux/*
+/uploads/rapports/*
+!/uploads/cv/.gitkeep
+!/uploads/lettres/.gitkeep
+!/uploads/journaux/.gitkeep
+!/uploads/rapports/.gitkeep
+
+/storage/pdf/attestations/*
+!/storage/pdf/attestations/.gitkeep
