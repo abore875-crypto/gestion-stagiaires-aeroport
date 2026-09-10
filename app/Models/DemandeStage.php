@@ -76,6 +76,23 @@ class DemandeStage
     /**
      * Liste les demandes pour le RH, avec filtre optionnel par statut.
      */
+        /**
+     * Compte les demandes par statut, pour les cartes de statistiques
+     * du tableau de bord RH.
+     */
+    public function countByStatut(): array
+    {
+        $stmt = $this->db->query(
+            'SELECT statut, COUNT(*) AS total FROM demandes_stage GROUP BY statut'
+        );
+
+        $counts = ['en_attente' => 0, 'acceptee' => 0, 'refusee' => 0];
+        foreach ($stmt->fetchAll() as $ligne) {
+            $counts[$ligne['statut']] = (int) $ligne['total'];
+        }
+
+        return $counts;
+    }
     public function findAll(?string $statut = null): array
     {
         if ($statut) {

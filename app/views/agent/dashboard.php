@@ -1,6 +1,12 @@
 <?php $titrePage = 'Mes stagiaires'; require __DIR__ . '/../partials/header.php'; ?>
+<div class="page-header">
+    <div class="icon-box">👥</div>
+    <div>
+        <h1 class="h4 fw-medium mb-0">Mes stagiaires</h1>
+        <p class="text-secondary small mb-0">Suivi et encadrement de vos stagiaires affectés</p>
+    </div>
+</div>
 
-<h1 class="h3 fw-medium mb-4">Mes stagiaires</h1>
 
 <?php if (empty($stages)): ?>
     <div class="alert alert-info">

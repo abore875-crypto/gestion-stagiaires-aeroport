@@ -65,8 +65,9 @@ class RhController
 
         $demandes = $this->demandeModel->findAll($statutFiltre);
 
-        $this->render('rh/dashboard', [
-            'demandes' => $demandes, 'statutFiltre' => $statutFiltre, 'errors' => $errors, 'agents' => $agents,
+               $this->render('rh/dashboard', [
+            'demandes' => $demandes, 'statutFiltre' => $statutFiltre, 'errors' => $errors,
+            'agents' => $agents, 'stats' => $this->demandeModel->countByStatut(),
         ]);
     }
 

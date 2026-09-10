@@ -23,3 +23,53 @@ body {
 .navbar-brand span {
     color: #14B53A;
 }
+/* ---- Identité visuelle : couleurs du drapeau malien ---- */
+:root {
+    --mali-vert: #14B53A;
+    --mali-jaune: #FCD116;
+    --mali-rouge: #CE1126;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.75rem;
+}
+
+.page-header .icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: linear-gradient(135deg, var(--mali-vert), #0d8f2c);
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.stat-card {
+    border-radius: 14px;
+    padding: 1.1rem 1.3rem;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.stat-card .value {
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.stat-card .label {
+    font-size: 0.8rem;
+    opacity: 0.92;
+    margin-top: 4px;
+}
+
+.stat-card.stat-vert   { background: linear-gradient(135deg, var(--mali-vert), #0d8f2c); }
+.stat-card.stat-jaune  { background: linear-gradient(135deg, var(--mali-jaune), #e0b800); color: #1a1a1a; }
+.stat-card.stat-rouge  { background: linear-gradient(135deg, var(--mali-rouge), #a80d1e); }
+.stat-card.stat-gris   { background: linear-gradient(135deg, #495057, #343a40); }

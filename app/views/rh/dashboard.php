@@ -1,9 +1,10 @@
 <?php $titrePage = 'Tableau de bord RH'; require __DIR__ . '/../partials/header.php'; ?>
 
-<div class="d-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 fw-medium mb-0">Demandes de stage</h1>
+<div class="page-header">
+    <div class="icon-box">📋</div>
     <div>
-        <a href="/rh/agents" class="btn btn-outline-secondary btn-sm">Agents</a>
+        <h1 class="h4 fw-medium mb-0">Demandes de stage</h1>
+        <p class="text-secondary small mb-0">Vue d'ensemble et traitement des candidatures</p>
     </div>
 </div>
 
@@ -17,12 +18,42 @@
     </div>
 <?php endif; ?>
 
-<!-- Filtres par statut -->
-<div class="btn-group mb-4" role="group">
-    <a href="/rh/tableau-de-bord" class="btn btn-sm <?= $statutFiltre === null ? 'btn-primary' : 'btn-outline-secondary' ?>">Toutes</a>
-    <a href="/rh/tableau-de-bord?statut=en_attente" class="btn btn-sm <?= $statutFiltre === 'en_attente' ? 'btn-primary' : 'btn-outline-secondary' ?>">En attente</a>
-    <a href="/rh/tableau-de-bord?statut=acceptee" class="btn btn-sm <?= $statutFiltre === 'acceptee' ? 'btn-primary' : 'btn-outline-secondary' ?>">Acceptées</a>
-    <a href="/rh/tableau-de-bord?statut=refusee" class="btn btn-sm <?= $statutFiltre === 'refusee' ? 'btn-primary' : 'btn-outline-secondary' ?>">Refusées</a>
+<!-- Cartes de statistiques -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="stat-card stat-jaune">
+            <div class="value"><?= $stats['en_attente'] ?></div>
+            <div class="label">En attente</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="stat-card stat-vert">
+            <div class="value"><?= $stats['acceptee'] ?></div>
+            <div class="label">Acceptées</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="stat-card stat-rouge">
+            <div class="value"><?= $stats['refusee'] ?></div>
+            <div class="label">Refusées</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="stat-card stat-gris">
+            <div class="value"><?= count($agents) ?></div>
+            <div class="label">Agents actifs</div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="btn-group" role="group">
+        <a href="/rh/tableau-de-bord" class="btn btn-sm <?= $statutFiltre === null ? 'btn-primary' : 'btn-outline-secondary' ?>">Toutes</a>
+        <a href="/rh/tableau-de-bord?statut=en_attente" class="btn btn-sm <?= $statutFiltre === 'en_attente' ? 'btn-primary' : 'btn-outline-secondary' ?>">En attente</a>
+        <a href="/rh/tableau-de-bord?statut=acceptee" class="btn btn-sm <?= $statutFiltre === 'acceptee' ? 'btn-primary' : 'btn-outline-secondary' ?>">Acceptées</a>
+        <a href="/rh/tableau-de-bord?statut=refusee" class="btn btn-sm <?= $statutFiltre === 'refusee' ? 'btn-primary' : 'btn-outline-secondary' ?>">Refusées</a>
+    </div>
+    <a href="/rh/agents" class="btn btn-outline-secondary btn-sm">Gérer les agents</a>
 </div>
 
 <?php if (empty($demandes)): ?>
@@ -84,7 +115,6 @@
                                     Refuser
                                 </button>
 
-                                <!-- Modale d'acceptation : choix de l'agent + dates -->
                                 <div class="modal fade" id="accepterModal<?= $demande['id'] ?>" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -140,7 +170,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Modale de refus avec motif -->
                                 <div class="modal fade" id="refuserModal<?= $demande['id'] ?>" tabindex="-1">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
