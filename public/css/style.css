@@ -10,3 +10,16 @@ body {
 .card {
     border-radius: 12px;
 }
+.btn-primary {
+    background-color: #14B53A;
+    border-color: #14B53A;
+}
+
+.btn-primary:hover {
+    background-color: #0d8f2c;
+    border-color: #0d8f2c;
+}
+
+.navbar-brand span {
+    color: #14B53A;
+}

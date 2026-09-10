@@ -1,10 +1,11 @@
 <?php $titrePage = 'Accueil'; require __DIR__ . '/partials/header.php'; ?>
 
-<div class="row align-items-center g-5">
+<div class="row align-items-center g-5 rounded-4 p-4 p-md-5 mb-5"
+     style="background: linear-gradient(rgba(0,20,10,0.72), rgba(0,20,10,0.72)), url('/images/hero-aeroport.jpg') center/cover no-repeat; color: #fff;">
     <div class="col-lg-7">
-        <span class="badge bg-primary-subtle text-primary-emphasis mb-3">Programme de stage aéroportuaire</span>
+              <span class="badge mb-3" style="background: #14B53A; color: #fff;">Aéroport International Président Modibo Keïta</span>
         <h1 class="fw-medium mb-3">Gérez votre stage à l'aéroport, du dépôt à l'attestation</h1>
-        <p class="text-secondary mb-4">
+        <p class="mb-4" style="color: #e0e0e0;">
             Déposez votre demande en ligne, suivez son traitement en temps réel,
             remplissez votre journal de bord et téléchargez votre attestation
             dès la fin du stage.

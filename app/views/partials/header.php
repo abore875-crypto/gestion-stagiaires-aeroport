@@ -11,7 +11,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
     <div class="container">
-        <a class="navbar-brand fw-medium" href="/">✈️ Aéroport Stages</a>
+                <a class="navbar-brand fw-medium d-flex align-items-center gap-2" href="/">
+            <img src="/images/logo-aeroports-mali.png" alt="Aéroports du Mali" style="height: 32px;">
+            <span>Aéroport Stages</span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
