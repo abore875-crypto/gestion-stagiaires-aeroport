@@ -1,10 +1,6 @@
-<?php $titrePage = 'Rapport de ' . $stagiaire['prenom']; require __DIR__ . '/../partials/header.php'; ?>
+<?php $titrePage = 'Rapport de ' . $stagiaire['prenom'];require __DIR__ . '/../partials/app-header.php'; ?>
 
 <a href="/agent/tableau-de-bord" class="small">← Mes stagiaires</a>
-<h1 class="h3 fw-medium my-3">
-    Rapport de <?= htmlspecialchars($stagiaire['prenom'] . ' ' . $stagiaire['nom']) ?>
-</h1>
-
 <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">
         <ul class="mb-0 ps-3">
@@ -62,4 +58,4 @@
     </div>
 <?php endif; ?>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

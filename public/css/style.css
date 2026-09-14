@@ -73,3 +73,132 @@ body {
 .stat-card.stat-jaune  { background: linear-gradient(135deg, var(--mali-jaune), #e0b800); color: #1a1a1a; }
 .stat-card.stat-rouge  { background: linear-gradient(135deg, var(--mali-rouge), #a80d1e); }
 .stat-card.stat-gris   { background: linear-gradient(135deg, #495057, #343a40); }
+/* ================================================================
+   Layout applicatif (pages connectées) : sidebar + fond gris clair
+   ================================================================ */
+body.app-body {
+    background: #f4f6f8;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.app-sidebar {
+    width: 232px;
+    background: #ffffff;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 0.9rem;
+    flex-shrink: 0;
+}
+
+.app-sidebar-brand {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0 1.5rem;
+    border-bottom: 1px solid #f1f3f5;
+    margin-bottom: 1rem;
+}
+.app-sidebar-brand img { height: 38px; }
+
+.app-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+}
+
+.app-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 13px;
+    border-radius: 10px;
+    color: #495057;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.15s, color 0.15s;
+}
+.app-nav-link i { font-size: 16px; width: 18px; text-align: center; }
+.app-nav-link:hover { background: #f1f3f5; color: #1a1a1a; }
+.app-nav-link.active {
+    background: linear-gradient(135deg, var(--mali-vert), #0d8f2c);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(20,181,58,0.35);
+}
+.app-nav-logout {
+    margin-top: 1rem;
+    color: var(--mali-rouge);
+    border-top: 1px solid #f1f3f5;
+    padding-top: 14px;
+}
+.app-nav-logout:hover { background: #fdecec; }
+
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.app-topbar {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.app-topbar-title { font-weight: 500; font-size: 16px; color: #1a1a1a; }
+.app-topbar-role {
+    background: #eef7ef;
+    color: var(--mali-vert);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding: 5px 10px;
+}
+
+.app-content {
+    padding: 32px;
+    flex: 1;
+}
+
+.app-content .card {
+    border: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+}
+.app-content .table-responsive {
+    background: #fff;
+    border-radius: 14px;
+    padding: 8px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+@media (max-width: 768px) {
+    .app-sidebar { display: none; }
+    .app-content { padding: 20px; }
+}
+
+/* Pages publiques utilitaires (connexion, inscription) */
+.public-utility-page {
+    background: #f4f6f8;
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+}
+.icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mali-vert), #0d8f2c);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 1rem;
+}

@@ -1,12 +1,4 @@
-<?php $titrePage = 'Mes stagiaires'; require __DIR__ . '/../partials/header.php'; ?>
-<div class="page-header">
-    <div class="icon-box">👥</div>
-    <div>
-        <h1 class="h4 fw-medium mb-0">Mes stagiaires</h1>
-        <p class="text-secondary small mb-0">Suivi et encadrement de vos stagiaires affectés</p>
-    </div>
-</div>
-
+<?php $titrePage = 'Mes stagiaires';require __DIR__ . '/../partials/app-header.php'; ?>
 
 <?php if (empty($stages)): ?>
     <div class="alert alert-info">
@@ -49,4 +41,4 @@
     </div>
 <?php endif; ?>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

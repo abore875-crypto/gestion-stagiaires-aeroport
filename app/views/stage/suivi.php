@@ -1,6 +1,6 @@
-<?php $titrePage = 'Suivi de ma demande'; require __DIR__ . '/../partials/header.php'; ?>
+<?php $titrePage = 'Suivi de ma demande';require __DIR__ . '/../partials/app-header.php'; ?>
 
-<h1 class="h3 fw-medium mb-4">Suivi de ma demande</h1>
+
 
 <?php if (empty($demandes)): ?>
     <div class="alert alert-info">
@@ -53,4 +53,4 @@
     </div>
 <?php endif; ?>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

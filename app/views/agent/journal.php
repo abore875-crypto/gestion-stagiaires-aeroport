@@ -1,9 +1,6 @@
-<?php $titrePage = 'Journal de ' . $stagiaire['prenom']; require __DIR__ . '/../partials/header.php'; ?>
+<?php $titrePage = 'Journal de ' . $stagiaire['prenom']; require __DIR__ . '/../partials/app-header.php'; ?>
 
 <a href="/agent/tableau-de-bord" class="small">← Mes stagiaires</a>
-<h1 class="h3 fw-medium my-3">
-    Journal de <?= htmlspecialchars($stagiaire['prenom'] . ' ' . $stagiaire['nom']) ?>
-</h1>
 
 <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">
@@ -72,4 +69,4 @@
     <?php endforeach; ?>
 <?php endif; ?>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

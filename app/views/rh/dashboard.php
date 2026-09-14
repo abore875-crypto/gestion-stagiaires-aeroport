@@ -1,12 +1,4 @@
-<?php $titrePage = 'Tableau de bord RH'; require __DIR__ . '/../partials/header.php'; ?>
-
-<div class="page-header">
-    <div class="icon-box">📋</div>
-    <div>
-        <h1 class="h4 fw-medium mb-0">Demandes de stage</h1>
-        <p class="text-secondary small mb-0">Vue d'ensemble et traitement des candidatures</p>
-    </div>
-</div>
+<?php $titrePage = 'Tableau de bord RH'; require __DIR__ . '/../partials/app-header.php'; ?>
 
 <?php if (!empty($errors)): ?>
     <div class="alert alert-danger">
@@ -18,7 +10,6 @@
     </div>
 <?php endif; ?>
 
-<!-- Cartes de statistiques -->
 <div class="row g-3 mb-4">
     <div class="col-6 col-lg-3">
         <div class="stat-card stat-jaune">
@@ -204,4 +195,4 @@
     </div>
 <?php endif; ?>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

@@ -1,8 +1,8 @@
-<?php $titrePage = 'Déposer une demande'; require __DIR__ . '/../partials/header.php'; ?>
+<?php $titrePage = 'Déposer une demande';require __DIR__ . '/../partials/app-header.php'; ?>
 
 <div class="row justify-content-center">
     <div class="col-md-7">
-        <h1 class="h3 fw-medium mb-4 text-center">Déposer une demande de stage</h1>
+            
 
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">
@@ -78,4 +78,4 @@
     </div>
 </div>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

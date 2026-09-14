@@ -1,7 +1,6 @@
-<?php $titrePage = 'Gestion des agents'; require __DIR__ . '/../partials/header.php'; ?>
-
+<?php $titrePage = 'Gestion des agents'; require __DIR__ . '/../partials/app-header.php'; ?>
 <div class="d-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 fw-medium mb-0">Comptes agents</h1>
+
     <a href="/rh/tableau-de-bord" class="btn btn-outline-secondary btn-sm">← Tableau de bord</a>
 </div>
 
@@ -122,4 +121,4 @@
     </div>
 </div>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>

@@ -1,6 +1,5 @@
-<?php $titrePage = 'Mon rapport de stage'; require __DIR__ . '/../partials/header.php'; ?>
+<?php $titrePage = 'Mon rapport de stage';require __DIR__ . '/../partials/app-header.php'; ?>
 
-<h1 class="h3 fw-medium mb-4">Mon rapport de stage</h1>
 
 <?php if (!$stage): ?>
     <div class="alert alert-info">
@@ -82,4 +81,4 @@
 
 <?php endif; ?>
 
-<?php require __DIR__ . '/../partials/footer.php'; ?>
+<?php require __DIR__ . '/../partials/app-footer.php'; ?>
