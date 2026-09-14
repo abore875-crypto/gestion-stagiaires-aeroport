@@ -178,9 +178,11 @@ body.app-body {
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-@media (max-width: 768px) {
-    .app-sidebar { display: none; }
+@media (max-width: 767.98px) {
     .app-content { padding: 20px; }
+    .app-sidebar.offcanvas-md {
+        width: 260px;
+    }
 }
 
 /* Pages publiques utilitaires (connexion, inscription) */

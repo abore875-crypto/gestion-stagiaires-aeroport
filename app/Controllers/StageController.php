@@ -261,7 +261,7 @@ class StageController
         }
 
         $nomFichier = uniqid($dossier . '_', true) . '.pdf';
-        $cheminDestination = dirname(__DIR__, 2) . '/uploads/' . $dossier . '/' . $nomFichier;
+        $cheminDestination = dirname(__DIR__, 2) . '/public/uploads/' . $dossier . '/' . $nomFichier;
 
         if (!move_uploaded_file($file['tmp_name'], $cheminDestination)) {
             $errors[] = "Impossible d'enregistrer le fichier, veuillez réessayer.";

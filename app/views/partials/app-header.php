@@ -37,7 +37,7 @@
 ?>
 
 <div class="app-layout">
-    <aside class="app-sidebar">
+    <aside class="app-sidebar offcanvas-md offcanvas-start" tabindex="-1" id="appSidebar">
         <a href="/" class="app-sidebar-brand">
             <img src="/images/logo-aeroports-mali.png" alt="Aéroports du Mali">
         </a>
@@ -57,6 +57,10 @@
 
     <div class="app-main">
         <header class="app-topbar">
+            <button class="btn btn-outline-secondary btn-sm d-md-none" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#appSidebar" aria-controls="appSidebar">
+                <i class="bi bi-list fs-5"></i>
+            </button>
             <span class="app-topbar-title"><?= isset($titrePage) ? htmlspecialchars($titrePage) : '' ?></span>
             <span class="app-topbar-role badge text-uppercase">
                 <?= htmlspecialchars($role ?? '') ?>
