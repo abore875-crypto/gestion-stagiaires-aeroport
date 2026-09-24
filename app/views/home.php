@@ -11,8 +11,8 @@
             dès la fin du stage.
         </p>
         <div class="d-flex gap-2">
-            <a href="/inscription" class="btn btn-primary">Déposer une demande</a>
-            <a href="/connexion" class="btn btn-outline-secondary">Suivre ma demande</a>
+         <a href="/demande/deposer" class="btn btn-primary">Déposer une demande</a>
+         <a href="/demande/suivi" class="btn btn-outline-secondary">Suivre ma demande</a>  
         </div>
     </div>
     <div class="col-lg-5">

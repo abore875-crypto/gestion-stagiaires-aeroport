@@ -7,10 +7,11 @@
 
 class AgentController
 {
-    private Stage $stageModel;
+       private Stage $stageModel;
     private JournalStage $journalModel;
     private User $userModel;
     private Rapport $rapportModel;
+    private NoteService $noteServiceModel;
 
     public function __construct()
     {
@@ -18,6 +19,7 @@ class AgentController
         $this->journalModel = new JournalStage();
         $this->userModel    = new User();
         $this->rapportModel = new Rapport();
+        $this->noteServiceModel = new NoteService();
     }
 
     /**
@@ -114,7 +116,42 @@ class AgentController
 
         $this->render('agent/rapport', ['stage' => $stage, 'stagiaire' => $stagiaire, 'rapport' => $rapport, 'errors' => $errors]);
     }
+    /**
+     * GET /agent/note-service/telecharger?stage_id=X
+     */
+    public function telechargerNoteService(): void
+    {
+        Security::requireRole('agent');
 
+        $stageId = (int) ($_GET['stage_id'] ?? 0);
+        $stage = $this->stageModel->findById($stageId);
+
+        if (!$stage || (int) $stage['agent_id'] !== Security::currentUserId()) {
+            http_response_code(403);
+            echo "Accès refusé : ce stage ne vous est pas assigné.";
+            return;
+        }
+
+        $note = $this->noteServiceModel->findByStageId($stageId);
+        if (!$note) {
+            http_response_code(404);
+            echo "Note de service introuvable.";
+            return;
+        }
+
+        $cheminAbsolu = dirname(__DIR__, 2) . '/' . $note['fichier_path'];
+        if (!file_exists($cheminAbsolu)) {
+            http_response_code(404);
+            echo "Fichier introuvable.";
+            return;
+        }
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="note-de-service.pdf"');
+        header('Content-Length: ' . filesize($cheminAbsolu));
+        readfile($cheminAbsolu);
+        exit;
+    }
     private function render(string $view, array $data = []): void
     {
         extract($data);

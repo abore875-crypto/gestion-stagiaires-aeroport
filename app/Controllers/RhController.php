@@ -7,21 +7,25 @@
 
 class RhController
 {
-        private DemandeStage $demandeModel;
+    private DemandeStage $demandeModel;
     private User $userModel;
     private Section $sectionModel;
     private Stage $stageModel;
     private Rapport $rapportModel;
     private Attestation $attestationModel;
+    private NoteService $noteServiceModel;
+    private JournalStage $journalModel;
 
     public function __construct()
     {
-        $this->demandeModel     = new DemandeStage();
-        $this->userModel        = new User();
-        $this->sectionModel     = new Section();
-        $this->stageModel       = new Stage();
-        $this->rapportModel     = new Rapport();
+        $this->demandeModel    = new DemandeStage();
+        $this->userModel       = new User();
+        $this->sectionModel    = new Section();
+        $this->stageModel      = new Stage();
+        $this->rapportModel    = new Rapport();
         $this->attestationModel = new Attestation();
+        $this->noteServiceModel = new NoteService();
+        $this->journalModel    = new JournalStage();
     }
 
     /**
@@ -100,18 +104,43 @@ class RhController
 
         if (!empty($errors)) return $errors;
 
-        $this->stageModel->create([
-            'demande_id'     => $demandeId,
-            'stagiaire_id'   => $demande['stagiaire_id'],
-            'departement_id' => $agent['departement_id'],
-            'section_id'     => $agent['section_id'],
-            'agent_id'       => $agent['id'],
-            'date_debut'     => $dateDebut,
-            'date_fin'       => $dateFin,
+               $stageId = $this->stageModel->create([
+            'demande_id' => $demandeId, 'stagiaire_id' => $demande['stagiaire_id'],
+            'departement_id' => $agent['departement_id'], 'section_id' => $agent['section_id'],
+            'agent_id' => $agent['id'], 'date_debut' => $dateDebut, 'date_fin' => $dateFin,
         ]);
 
         $this->demandeModel->updateStatut($demandeId, 'acceptee', Security::currentUserId());
+        $this->genererNoteService($stageId);
+
         return [];
+    }
+
+    /**
+     * Génère automatiquement la note de service (mémo interne) dès
+     * qu'un stage est créé, pour informer le département concerné.
+     */
+    private function genererNoteService(int $stageId): void
+    {
+        if ($this->noteServiceModel->findByStageId($stageId)) {
+            return;
+        }
+
+        $stage = $this->stageModel->findByIdWithDetails($stageId);
+        if (!$stage) {
+            return;
+        }
+
+        $nomFichier = 'note_service_' . $stageId . '_' . uniqid() . '.pdf';
+        $cheminAbsolu = dirname(__DIR__, 2) . '/storage/pdf/notes_service/' . $nomFichier;
+
+        PdfGenerator::generateFromView(
+            dirname(__DIR__) . '/Views/pdf/note_service.php',
+            ['stage' => $stage],
+            $cheminAbsolu
+        );
+
+        $this->noteServiceModel->create($stageId, 'storage/pdf/notes_service/' . $nomFichier);
     }
 
     /**
@@ -281,7 +310,77 @@ class RhController
         readfile($cheminAbsolu);
         exit;
     }
+        /**
+     * GET /rh/notes-service
+     */
+    public function notesService(): void
+    {
+        Security::requireRole('rh');
 
+        $this->render('rh/notes-service', [
+            'notes' => $this->noteServiceModel->findAllWithDetails(),
+        ]);
+    }
+
+    /**
+     * GET /rh/notes-service/telecharger?stage_id=X
+     */
+    public function telechargerNoteService(): void
+    {
+        Security::requireRole('rh');
+
+        $stageId = (int) ($_GET['stage_id'] ?? 0);
+        $note = $this->noteServiceModel->findByStageId($stageId);
+
+        if (!$note) {
+            http_response_code(404);
+            echo "Note de service introuvable.";
+            return;
+        }
+
+        $this->envoyerFichierPdf($note['fichier_path']);
+    }
+    /**
+     * GET /rh/candidat?demande_id=X
+     * Fiche complète d'un candidat : sa demande, et si elle a été
+     * acceptée, son stage, son journal, son rapport et son attestation.
+     */
+    public function candidat(): void
+    {
+        Security::requireRole('rh');
+
+        $demandeId = (int) ($_GET['demande_id'] ?? 0);
+        $demande = $this->demandeModel->findById($demandeId);
+
+        if (!$demande) {
+            http_response_code(404);
+            echo "Candidat introuvable.";
+            return;
+        }
+
+        $stage = null;
+        $entrees = [];
+        $rapport = null;
+        $attestation = null;
+
+        if ($demande['statut'] === 'acceptee') {
+            $stageBrut = $this->stageModel->findByDemandeId($demandeId);
+            if ($stageBrut) {
+                $stage = $this->stageModel->findByIdWithDetails($stageBrut['id']);
+                $entrees     = $this->journalModel->findByStageId($stage['id']);
+                $rapport     = $this->rapportModel->findByStageId($stage['id']);
+                $attestation = $this->attestationModel->findByStageId($stage['id']);
+            }
+        }
+
+        $this->render('rh/candidat', [
+            'demande'     => $demande,
+            'stage'       => $stage,
+            'entrees'     => $entrees,
+            'rapport'     => $rapport,
+            'attestation' => $attestation,
+        ]);
+    }
     private function render(string $view, array $data = []): void
     {
         extract($data);

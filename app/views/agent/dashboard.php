@@ -34,6 +34,7 @@
                         </p>
                         <a href="/agent/journal?stage_id=<?= $stage['id'] ?>" class="btn btn-sm btn-outline-primary w-100">Voir le journal</a>
                         <a href="/agent/rapport?stage_id=<?= $stage['id'] ?>" class="btn btn-sm btn-outline-secondary w-100 mt-1">Voir le rapport</a>
+                        <a href="/agent/note-service/telecharger?stage_id=<?= $stage['id'] ?>" class="btn btn-sm btn-outline-secondary w-100 mt-1">Note de service</a>
                     </div>
                 </div>
             </div>

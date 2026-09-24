@@ -50,6 +50,8 @@ $routes = [
     'connexion'                    => [AuthController::class, 'login'],
     'inscription'                  => [AuthController::class, 'register'],
     'deconnexion'                  => [AuthController::class, 'logout'],
+    'demande/deposer'              => [DemandeController::class, 'deposer'],
+    'demande/suivi'                => [DemandeController::class, 'suivi'],
     'stage/depot'                  => [StageController::class, 'depot'],
     'stage/suivi'                  => [StageController::class, 'suivi'],
     'stage/journal'                => [StageController::class, 'journal'],
@@ -61,9 +63,13 @@ $routes = [
     'rh/rapports'                  => [RhController::class, 'rapports'],
     'rh/attestations'              => [RhController::class, 'attestations'],
     'rh/attestations/telecharger'  => [RhController::class, 'telechargerAttestation'],
+    'rh/notes-service'             => [RhController::class, 'notesService'],
+    'rh/notes-service/telecharger' => [RhController::class, 'telechargerNoteService'],
+    'rh/candidat'                  => [RhController::class, 'candidat'],
     'agent/tableau-de-bord'        => [AgentController::class, 'dashboard'],
     'agent/journal'                => [AgentController::class, 'journal'],
     'agent/rapport'                => [AgentController::class, 'rapport'],
+    'agent/note-service/telecharger' => [AgentController::class, 'telechargerNoteService'],
 ];
 
 // ---------------------------------------------------------------------

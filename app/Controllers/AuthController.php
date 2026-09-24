@@ -2,23 +2,26 @@
 /**
  * app/Controllers/AuthController.php
  * Gère l'inscription (stagiaire uniquement), la connexion et la
- * déconnexion. Le contrôleur orchestre : il lit la requête, appelle le
- * modèle, puis affiche la vue. Il ne contient pas de SQL ni de HTML.
+ * déconnexion. À l'inscription, toute demande déposée avant la
+ * création du compte (dépôt public sans connexion) est automatiquement
+ * reliée si l'email correspond.
  */
 
 class AuthController
 {
     private User $userModel;
+    private DemandeStage $demandeModel;
+    private Stage $stageModel;
 
     public function __construct()
     {
-        $this->userModel = new User();
+        $this->userModel    = new User();
+        $this->demandeModel = new DemandeStage();
+        $this->stageModel   = new Stage();
     }
 
     /**
      * GET/POST /inscription
-     * Formulaire public de création de compte — réservé aux stagiaires.
-     * RH et agents ne peuvent jamais être créés depuis cette page.
      */
     public function register(): void
     {
@@ -33,7 +36,6 @@ class AuthController
             $data = Security::sanitizeArray($_POST);
             $old = $data;
 
-            // --- Validation ------------------------------------------------
             if (empty($data['nom']))    $errors[] = "Le nom est obligatoire.";
             if (empty($data['prenom'])) $errors[] = "Le prénom est obligatoire.";
             if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
@@ -49,7 +51,6 @@ class AuthController
                 $errors[] = "Un compte existe déjà avec cet email.";
             }
 
-            // --- Création ----------------------------------------------------
             if (empty($errors)) {
                 $userId = $this->userModel->create([
                     'nom'          => $data['nom'],
@@ -57,19 +58,23 @@ class AuthController
                     'email'        => $data['email'],
                     'telephone'    => $data['telephone'] ?? null,
                     'mot_de_passe' => password_hash($data['mot_de_passe'], PASSWORD_DEFAULT),
-                    'role'         => 'stagiaire', // forcé : jamais choisi par l'utilisateur
+                    'role'         => 'stagiaire',
                 ]);
 
+                // Relie automatiquement toute demande déposée avant la
+                // création du compte (dépôt public sans connexion).
+                $demandeIds = $this->demandeModel->linkToStagiaireByEmail($data['email'], $userId);
+                if (!empty($demandeIds)) {
+                    $this->stageModel->linkStagiaireByDemandeIds($demandeIds, $userId);
+                }
+
                 $this->logUserIn($userId);
-                header('Location: /stage/depot');
+                header('Location: /stage/suivi');
                 exit;
             }
         }
 
-        $this->render('auth/register', [
-            'errors' => $errors,
-            'old'    => $old,
-        ]);
+        $this->render('auth/register', ['errors' => $errors, 'old' => $old]);
     }
 
     /**
@@ -105,10 +110,7 @@ class AuthController
             }
         }
 
-        $this->render('auth/login', [
-            'errors' => $errors,
-            'old'    => $old,
-        ]);
+        $this->render('auth/login', ['errors' => $errors, 'old' => $old]);
     }
 
     /**
@@ -122,13 +124,9 @@ class AuthController
         exit;
     }
 
-    // -------------------------------------------------------------
-    // Helpers privés
-    // -------------------------------------------------------------
-
     private function logUserIn(int $userId, ?string $role = 'stagiaire'): void
     {
-        session_regenerate_id(true); // empêche la fixation de session
+        session_regenerate_id(true);
         $_SESSION['user_id']   = $userId;
         $_SESSION['user_role'] = $role;
     }

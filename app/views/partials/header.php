@@ -40,6 +40,7 @@
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="/connexion">Connexion</a></li>
                     <li class="nav-item"><a class="btn btn-primary btn-sm ms-2" href="/inscription">Créer un compte</a></li>
+                    <li class="nav-item"><a class="btn btn-primary btn-sm ms-2" href="/demande/deposer">Déposer une demande</a></li>
                 <?php endif; ?>                      
             </ul>
         </div>

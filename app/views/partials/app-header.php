@@ -27,6 +27,7 @@
             ['route' => 'rh/tableau-de-bord', 'icon' => 'bi-clipboard-data',      'label' => 'Tableau de bord'],
             ['route' => 'rh/agents',          'icon' => 'bi-person-badge',        'label' => 'Agents'],
             ['route' => 'rh/rapports',        'icon' => 'bi-file-earmark-check',  'label' => 'Rapports'],
+            ['route' => 'rh/notes-service',   'icon' => 'bi-file-earmark-text',   'label' => 'Notes de service'],
             ['route' => 'rh/attestations',    'icon' => 'bi-mortarboard',         'label' => 'Attestations'],
         ];
     } elseif ($role === 'agent') {

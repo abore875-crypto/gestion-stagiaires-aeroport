@@ -78,7 +78,7 @@
                 <?php foreach ($demandes as $demande): ?>
                     <tr>
                         <td>
-                            <div class="fw-medium"><?= htmlspecialchars($demande['prenom'] . ' ' . $demande['nom']) ?></div>
+                            <a href="/rh/candidat?demande_id=<?= $demande['id'] ?>" class="fw-medium text-decoration-none"><?= htmlspecialchars($demande['prenom'] . ' ' . $demande['nom']) ?></a>
                             <div class="small text-secondary"><?= htmlspecialchars($demande['email']) ?></div>
                         </td>
                         <td>
